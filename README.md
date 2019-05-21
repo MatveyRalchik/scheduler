@@ -1,8 +1,8 @@
-# Scheduler Spring Boot demo project for Sbertech Java school
+# Scheduler Spring Boot demo project for Java School
 
 Author **Matvey Ralchik**
 
-## Used technologies
+## Technologies used:
 
 * Java 8
 * Spring MVC
@@ -13,8 +13,6 @@ Author **Matvey Ralchik**
   - Embedded H2 database
 * Maven 3.6.0
 
-* [WEB site](https://www.aws.com)
+## Deplyed:
 
-## To build:
-
-    mvn package
+[WEB site](https://www.aws.com)
