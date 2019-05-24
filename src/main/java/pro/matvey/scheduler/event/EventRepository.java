@@ -1,4 +1,4 @@
-package pro.matvey.scheduler;
+package pro.matvey.scheduler.event;
 
 import org.springframework.data.repository.CrudRepository;
 

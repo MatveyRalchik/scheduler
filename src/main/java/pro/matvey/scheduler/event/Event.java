@@ -1,9 +1,10 @@
-package pro.matvey.scheduler;
+package pro.matvey.scheduler.event;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.Instant;
 import java.util.Date;
 
 
@@ -15,13 +16,13 @@ public class Event {
     private Long id;
 
     private String name;
-    private Date start;
-    private Date end;
+    private Instant start;
+    private Instant end;
 
     protected Event() {
     }
 
-    public Event(String name, Date start, Date end) {
+    public Event(String name, Instant start, Instant end) {
         this.name = name;
         this.start = start;
         this.end = end;
@@ -43,19 +44,19 @@ public class Event {
         this.name = name;
     }
 
-    public Date getStart() {
+    public Instant getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(Instant start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public Instant getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(Instant end) {
         this.end = end;
     }
 

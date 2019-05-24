@@ -1,15 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Getting Started: Serving Web Content</title>
 </head>
 <body>
-<div th:each="event : ${events}">
-    <span th:text="${event.id}"></span>
-    <span th:text="${event.name}"></span>
-    <span th:text="${event.start}"></span>
-    <span th:text="${event.end}"></span>
-</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>start</th>
+        <th>end</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${events.empty}">
+        <td>no events</td>
+    </tr>
+    <tr th:each="event : ${events}">
+        <td><span th:text="${event.id}">id</span></td>
+        <td><span th:text="${event.name}">name</span></td>
+        <td><span th:text="${event.start}">start</span></td>
+        <td><span th:text="${event.end}">end</span></td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
