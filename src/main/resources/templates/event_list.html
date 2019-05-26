@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Scheduler Spring Boot demo project for Java School</title>
 </head>
 <body>
 
@@ -19,11 +19,15 @@
     <tr th:if="${events.empty}">
         <td>no events</td>
     </tr>
-    <tr th:each="event : ${events}">
-        <td><span th:text="${event.id}">id</span></td>
-        <td><span th:text="${event.name}">name</span></td>
-        <td><span th:text="${event.start}">start</span></td>
-        <td><span th:text="${event.end}">end</span></td>
+    <tr th:each="event : ${events}" th:object="${event}">
+        <td><span th:text="${event.id}"/></td>
+        <td>
+            <a th:href="@{'/event/' + ${event.id}}">
+                <span th:text="${event.name}"/>
+            </a>
+        </td>
+        <td><span th:text="*{{start}}"/></td>
+        <td><span th:text="*{{end}}"/></td>
     </tr>
     </tbody>
 </table>

@@ -1,42 +1,37 @@
 package pro.matvey.scheduler.event;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 
-import org.springframework.web.bind.annotation.GetMapping;
-
-//import javax.validation.Validator;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class EventController {
 
-    @Autowired
-    EventRepository eventRepository;
+    private EventService eventService;
 
-    //@Autowired
-    //Logger log;
-
-    @Autowired
-    Validator validator;
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
 
     @GetMapping("/")
-    //public String scheduler(@PathVariable(name = "t") String t, @RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-    public String scheduler(Model model) {
-        model.addAttribute("events", eventRepository.findAll());
+    public String getEvents(Model model) {
+        model.addAttribute("events", eventService.events());
+        return "event_list";
+    }
 
+    @GetMapping("/event/{id}")
+    public String getEvent(@PathVariable Long id, Model model) {
+        model.addAttribute("event", eventService.event(id));
+        return "event";
+    }
 
-        //log.info("request");
-//        System.out.println(eventRepository.count());
-//        model.addAllAttributes(eventRepository.findAll());
-//        System.out.println(model.asMap().size());
-//        model.asMap().forEach(
-//                (S, O) -> System.out.println(S + " = " + O)
-//        );
-        return "scheduler";
+    @PostMapping("/event")
+    public String postEvent(@ModelAttribute @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm") Event event) {
+        eventService.save(event);
+        return "event";
+        //return "redirect:/";
     }
 
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Scheduler Spring Boot demo project for Java School - event create/edit page</title>
+</head>
+<body>
+
+<h1 th:text="'Edit event #' + ${event.id}"></h1>
+
+<form action="#" th:action="@{/event}" th:object="${event}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <p>Name: <input type="text" th:field="*{name}"/></p>
+    <p>Start: <input type="text" th:field="*{start}"/></p>
+    <p>End: <input type="text" th:field="*{end}"/></p>
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    <p><a href="/">Back to event list</a></p>
+</form>
+
+<p>Start => <span type="text" th:text="${{event.start}}"/></p>
+<p>End => <span type="text" th:text="${{event.end}}"/></p>
+
+</body>
+</html>
