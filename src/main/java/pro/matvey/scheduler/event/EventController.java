@@ -1,10 +1,12 @@
 package pro.matvey.scheduler.event;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 
 @Controller
 public class EventController {
@@ -21,6 +23,11 @@ public class EventController {
         return "event_list";
     }
 
+    @GetMapping("/event")
+    public String newEvent(Event event) {
+        return "event";
+    }
+
     @GetMapping("/event/{id}")
     public String getEvent(@PathVariable Long id, Model model) {
         model.addAttribute("event", eventService.event(id));
@@ -28,10 +35,29 @@ public class EventController {
     }
 
     @PostMapping("/event")
-    public String postEvent(@ModelAttribute @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm") Event event) {
+    public String postEvent(
+            //@PathVariable Long id,
+            @ModelAttribute("event") @Valid Event event,
+            BindingResult bindingResult,
+            Model model
+    ) {
+        System.out.println(event);
+
+        if (bindingResult.hasErrors()) {
+            //return "redirect:/event/" + id;
+            return("event");
+
+        }
+        //event.setId(id);
+        //System.out.println(event);
         eventService.save(event);
-        return "event";
-        //return "redirect:/";
+        return "redirect:/";
+    }
+
+    @GetMapping("/event/delete/{id}")
+    public String deleteEvent(@PathVariable Long id) {
+        eventService.delete(id);
+        return "redirect:/";
     }
 
 }

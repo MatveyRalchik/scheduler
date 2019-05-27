@@ -4,14 +4,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-
 
 @Entity
 public class Event {
@@ -22,16 +18,16 @@ public class Event {
     @NotEmpty
     private String name;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private Date start;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
-    private Date end;
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
+    private LocalDateTime end;
 
     protected Event() {
     }
 
-    public Event(String name, Date start, Date end) {
+    public Event(String name, Date start, LocalDateTime end) {
         this.name = name;
         this.start = start;
         this.end = end;
@@ -58,10 +54,10 @@ public class Event {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
-    public void setEnd(Date end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
@@ -70,7 +66,7 @@ public class Event {
         return "Event{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", start=" + start +
+                ", start=" + start.toString() +
                 ", end=" + end +
                 '}';
     }

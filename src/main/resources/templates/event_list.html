@@ -19,18 +19,17 @@
     <tr th:if="${events.empty}">
         <td>no events</td>
     </tr>
-    <tr th:each="event : ${events}" th:object="${event}">
+    <tr th:each="event : ${events}">
         <td><span th:text="${event.id}"/></td>
-        <td>
-            <a th:href="@{'/event/' + ${event.id}}">
-                <span th:text="${event.name}"/>
-            </a>
-        </td>
-        <td><span th:text="*{{start}}"/></td>
-        <td><span th:text="*{{end}}"/></td>
+        <td><span th:text="${event.name}"/></td>
+        <td><span th:text="${{event.start}}"/></td>
+        <td><span th:text="${{event.end}}"/></td>
+        <td><a th:href="@{'/event/' + ${event.id}}">edit</a></td>
+        <td><a th:href="@{'/event/delete/' + ${event.id}}">delete</a></td>
     </tr>
     </tbody>
 </table>
+<p><a th:href="@{/event/}">add new event</a></p>
 
 </body>
 </html>
