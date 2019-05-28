@@ -34,7 +34,7 @@ public class EventController {
 
     @GetMapping("/event/{id}")
     public String getEvent(@PathVariable Long id, Model model) {
-        model.addAttribute("event", eventService.event(id));
+        model.addAttribute("event", eventService.get(id));
         return "event";
     }
 

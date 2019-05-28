@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
@@ -23,6 +24,11 @@ public class Event {
 
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime end;
+
+    @AssertTrue(message="End date must be after start date")
+    public boolean isDateTimeValid() {
+        return end.isAfter(start);
+    }
 
     protected Event() {
     }

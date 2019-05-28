@@ -17,11 +17,12 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    public Event event(Long id) {
+    public Event get(Long id) {
         return eventRepository.findById(id).orElseThrow(() -> new RuntimeException("event " + id + "not found"));
     }
 
     public Event save(Event event) {
+
         return eventRepository.save(event);
     }
 

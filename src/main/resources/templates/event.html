@@ -14,6 +14,7 @@
     <p th:if="${#fields.hasErrors('start')}" th:errors="*{start}">Start Error</p>
     <p>End: <input type="text" th:field="*{end}"/></p>
     <p th:if="${#fields.hasErrors('end')}" th:errors="*{end}">End Error</p>
+    <p th:if="${#fields.hasErrors('dateTimeValid')}" th:errors="*{dateTimeValid}">End Error</p>
     <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
     <p><a href="/">Back to event list</a></p>
 </form>
