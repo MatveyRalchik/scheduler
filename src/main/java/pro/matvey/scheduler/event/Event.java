@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 public class Event {
@@ -15,11 +14,12 @@ public class Event {
     @Id
     @GeneratedValue
     private Long id;
+
     @NotEmpty
     private String name;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
-    private Date start;
+    private LocalDateTime start;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime end;
@@ -27,7 +27,7 @@ public class Event {
     protected Event() {
     }
 
-    public Event(String name, Date start, LocalDateTime end) {
+    public Event(String name, LocalDateTime start, LocalDateTime end) {
         this.name = name;
         this.start = start;
         this.end = end;
@@ -47,10 +47,10 @@ public class Event {
         this.name = name;
     }
 
-    public Date getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
-    public void setStart(Date start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 

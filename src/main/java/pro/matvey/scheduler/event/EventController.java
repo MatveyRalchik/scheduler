@@ -6,7 +6,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Controller
 public class EventController {
@@ -25,6 +26,9 @@ public class EventController {
 
     @GetMapping("/event")
     public String newEvent(Event event) {
+        event.setName("Random name" + LocalDateTime.now().getSecond());
+        event.setStart(LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).plusHours(1));
+        event.setEnd(LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).plusHours(2));
         return "event";
     }
 
@@ -36,20 +40,18 @@ public class EventController {
 
     @PostMapping("/event")
     public String postEvent(
-            //@PathVariable Long id,
+            @RequestParam Long id,
+            @RequestParam String start,
+            @RequestParam String end,
             @ModelAttribute("event") @Valid Event event,
-            BindingResult bindingResult,
-            Model model
+            BindingResult bindingResult
     ) {
-        System.out.println(event);
-
         if (bindingResult.hasErrors()) {
-            //return "redirect:/event/" + id;
+            bindingResult.recordFieldValue("id", Long.class, id);
+            bindingResult.recordFieldValue("start", LocalDateTime.class, start);
+            bindingResult.recordFieldValue("end", LocalDateTime.class, end);
             return("event");
-
         }
-        //event.setId(id);
-        //System.out.println(event);
         eventService.save(event);
         return "redirect:/";
     }
