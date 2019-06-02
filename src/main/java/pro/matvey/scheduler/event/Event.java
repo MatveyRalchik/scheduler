@@ -18,16 +18,16 @@ public class Event {
     @NotEmpty
     private String name;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
-    private Date start;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime start;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime end;
 
     protected Event() {
     }
 
-    public Event(String name, Date start, LocalDateTime end) {
+    public Event(String name, LocalDateTime start, LocalDateTime end) {
         this.name = name;
         this.start = start;
         this.end = end;
@@ -47,10 +47,10 @@ public class Event {
         this.name = name;
     }
 
-    public Date getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
-    public void setStart(Date start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
@@ -66,7 +66,7 @@ public class Event {
         return "Event{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", start=" + start.toString() +
+                ", start=" + start +
                 ", end=" + end +
                 '}';
     }

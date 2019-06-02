@@ -4,8 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 
 @Controller
@@ -25,6 +28,9 @@ public class EventController {
 
     @GetMapping("/event")
     public String newEvent(Event event) {
+        System.out.println("log");
+        event.setStart(LocalDateTime.now());
+        event.setEnd(LocalDateTime.now());
         return "event";
     }
 
@@ -39,13 +45,17 @@ public class EventController {
             //@PathVariable Long id,
             @ModelAttribute("event") @Valid Event event,
             BindingResult bindingResult,
-            Model model
+            RedirectAttributes attr,
+            HttpSession session
+            //Model model
     ) {
         System.out.println(event);
 
         if (bindingResult.hasErrors()) {
             //return "redirect:/event/" + id;
-            return("event");
+            attr.addFlashAttribute("org.springframework.validation.BindingResult.event", bindingResult);
+            attr.addFlashAttribute("event", event);
+            return "event";
 
         }
         //event.setId(id);
