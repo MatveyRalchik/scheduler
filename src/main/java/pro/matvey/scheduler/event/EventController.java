@@ -4,12 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-
+import java.time.temporal.ChronoUnit;
 
 @Controller
 public class EventController {
@@ -28,38 +26,32 @@ public class EventController {
 
     @GetMapping("/event")
     public String newEvent(Event event) {
-        System.out.println("log");
-        event.setStart(LocalDateTime.now());
-        event.setEnd(LocalDateTime.now());
+        event.setName("Random name" + LocalDateTime.now().getSecond());
+        event.setStart(LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).plusHours(1));
+        event.setEnd(LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).plusHours(2));
         return "event";
     }
 
     @GetMapping("/event/{id}")
     public String getEvent(@PathVariable Long id, Model model) {
-        model.addAttribute("event", eventService.event(id));
+        model.addAttribute("event", eventService.get(id));
         return "event";
     }
 
     @PostMapping("/event")
     public String postEvent(
-            //@PathVariable Long id,
+            @RequestParam Long id,
+            @RequestParam String start,
+            @RequestParam String end,
             @ModelAttribute("event") @Valid Event event,
-            BindingResult bindingResult,
-            RedirectAttributes attr,
-            HttpSession session
-            //Model model
+            BindingResult bindingResult
     ) {
-        System.out.println(event);
-
         if (bindingResult.hasErrors()) {
-            //return "redirect:/event/" + id;
-            attr.addFlashAttribute("org.springframework.validation.BindingResult.event", bindingResult);
-            attr.addFlashAttribute("event", event);
-            return "event";
-
+            bindingResult.recordFieldValue("id", Long.class, id);
+            bindingResult.recordFieldValue("start", LocalDateTime.class, start);
+            bindingResult.recordFieldValue("end", LocalDateTime.class, end);
+            return("event");
         }
-        //event.setId(id);
-        //System.out.println(event);
         eventService.save(event);
         return "redirect:/";
     }

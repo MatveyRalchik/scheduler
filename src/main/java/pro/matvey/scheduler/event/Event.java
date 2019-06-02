@@ -5,9 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 public class Event {
@@ -15,14 +15,20 @@ public class Event {
     @Id
     @GeneratedValue
     private Long id;
+
     @NotEmpty
     private String name;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime start;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime end;
+
+    @AssertTrue(message="End date must be after start date")
+    public boolean isDateTimeValid() {
+        return end.isAfter(start);
+    }
 
     protected Event() {
     }
@@ -66,7 +72,7 @@ public class Event {
         return "Event{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", start=" + start +
+                ", start=" + start.toString() +
                 ", end=" + end +
                 '}';
     }
