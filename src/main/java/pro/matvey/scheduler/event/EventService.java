@@ -27,9 +27,11 @@ public class EventService {
     }
 
     public Event save(Event event, BindingResult bindingResult) {
-        List<Event> events= eventRepository.findReserved(event.getStart(), event.getEnd());
+        List<Event> events = eventRepository.findReserved(event.getStart(), event.getEnd());
 
-        if (events.stream().filter(e -> e.getId() != event.getId()).count() > 0) {
+        if (events.stream().filter(
+                e -> !e.getId().equals(event.getId())
+        ).count() > 0) {
             bindingResult.rejectValue("start", "", "Requested date and time already reserved");
             bindingResult.rejectValue("end", "", "Requested date and time already reserved");
         }

@@ -14,11 +14,10 @@ public interface EventRepository extends CrudRepository<Event, Long> {
     @Query("select e from Event e where" +
             " e.start between :start and :end" +
             " or e.end between :start and :end" +
-            " or e.start < :start and e.end > :end"
-    ) public List<Event> findReserved(
+            " or e.start < :start and e.end > :end")
+    public List<Event> findReserved(
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end
     );
-
 
 }
