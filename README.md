@@ -13,6 +13,6 @@ Author **Matvey Ralchik**
   - Embedded H2 database
 * Maven 3.6.0
 
-## Deplyed:
+## Deployed:
 
 [WEB site](https://www.aws.com)
