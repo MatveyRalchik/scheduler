@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,7 +16,7 @@ public class Event {
     @GeneratedValue
     private Long id;
 
-    @NotEmpty
+    @NotBlank
     private String name;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")

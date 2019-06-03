@@ -3,7 +3,7 @@ HELP.md
 !.mvn/wrapper/maven-wrapper.jar
 
 ### h2 ###
-.db
+.h2
 
 ### STS ###
 .apt_generated

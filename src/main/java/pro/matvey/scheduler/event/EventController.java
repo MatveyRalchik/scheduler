@@ -52,7 +52,12 @@ public class EventController {
             bindingResult.recordFieldValue("end", LocalDateTime.class, end);
             return("event");
         }
-        eventService.save(event);
+
+        eventService.save(event, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return("event");
+        }
+
         return "redirect:/";
     }
 
