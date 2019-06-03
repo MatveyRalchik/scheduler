@@ -1,7 +1,12 @@
 package pro.matvey.scheduler.event;
 
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 
+import javax.validation.ConstraintViolationException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -21,9 +26,18 @@ public class EventService {
         return eventRepository.findById(id).orElseThrow(() -> new RuntimeException("event " + id + "not found"));
     }
 
-    public Event save(Event event) {
+    public Event save(Event event, BindingResult bindingResult) {
+        List<Event> events= eventRepository.findReserved(event.getStart(), event.getEnd());
 
-        return eventRepository.save(event);
+        if (events.stream().filter(e -> e.getId() != event.getId()).count() > 0) {
+            bindingResult.rejectValue("start", "", "Requested date and time already reserved");
+            bindingResult.rejectValue("end", "", "Requested date and time already reserved");
+        }
+
+        if (bindingResult.hasErrors())
+            return null;
+        else
+            return eventRepository.save(event);
     }
 
     public void delete(Long id) {
