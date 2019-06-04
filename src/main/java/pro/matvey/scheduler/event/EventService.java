@@ -1,5 +1,6 @@
 package pro.matvey.scheduler.event;
 
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -20,6 +21,10 @@ public class EventService {
 
     public List<Event> events() {
         return eventRepository.findAll();
+    }
+
+    public List<Event> events(Event filter) {
+        return eventRepository.findAll(Example.of(filter));
     }
 
     public Event get(Long id) {
