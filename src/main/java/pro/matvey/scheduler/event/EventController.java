@@ -54,9 +54,8 @@ public class EventController {
         }
 
         eventService.save(event, bindingResult);
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors())
             return("event");
-        }
 
         return "redirect:/";
     }
