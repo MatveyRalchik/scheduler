@@ -25,7 +25,7 @@ public class Event {
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime end;
 
-    @AssertTrue(message="End date must be after start date")
+    @AssertTrue(message = "End date must be after start date")
     public boolean isDateTimeValid() {
         return end.isAfter(start);
     }
@@ -42,6 +42,7 @@ public class Event {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -49,6 +50,7 @@ public class Event {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -56,6 +58,7 @@ public class Event {
     public LocalDateTime getStart() {
         return start;
     }
+
     public void setStart(LocalDateTime start) {
         this.start = start;
     }
@@ -63,6 +66,7 @@ public class Event {
     public LocalDateTime getEnd() {
         return end;
     }
+
     public void setEnd(LocalDateTime end) {
         this.end = end;
     }

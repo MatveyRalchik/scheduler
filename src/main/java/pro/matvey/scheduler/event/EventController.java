@@ -50,12 +50,12 @@ public class EventController {
             bindingResult.recordFieldValue("id", Long.class, id);
             bindingResult.recordFieldValue("start", LocalDateTime.class, start);
             bindingResult.recordFieldValue("end", LocalDateTime.class, end);
-            return("event");
+            return ("event");
         }
 
         eventService.save(event, bindingResult);
         if (bindingResult.hasErrors())
-            return("event");
+            return ("event");
 
         return "redirect:/";
     }
