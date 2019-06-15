@@ -14,4 +14,4 @@ Author **Matvey Ralchik**
 
 ## Deployed:
 
-[WEB site](https://www.aws.com)
+[WEB site](http://ec2-18-194-93-113.eu-central-1.compute.amazonaws.com:8080)
