@@ -9,9 +9,6 @@
 </head>
 <body>
 
-<h2>
-    Header123
-</h2>
 <form action="#" th:action="@{/event}" th:object="${event}" method="post">
     <input type="hidden" th:field="*{id}"/>
     <p>Name: <input type="text" th:field="*{name}"/></p>
